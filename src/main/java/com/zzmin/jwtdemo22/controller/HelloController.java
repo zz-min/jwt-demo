@@ -1,5 +1,7 @@
 package com.zzmin.jwtdemo22.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -13,8 +15,10 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/api")
+@Tag(name = "HelloController", description = "HelloController API")
 public class HelloController {
     @GetMapping("/hello")
+    @Operation(summary = "No Token", description = "token없이 사용가능 API")
     public ResponseEntity<String> hello(){
         return ResponseEntity.ok("hello");
     }

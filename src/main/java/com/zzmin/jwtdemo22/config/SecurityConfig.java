@@ -66,9 +66,11 @@ public class SecurityConfig {
                 // 특정 엔드포인트를 인가 예외
                 .authorizeHttpRequests(
                         authorize -> authorize
-                                .requestMatchers("/api/signup").permitAll() // 회원가입
-                                .requestMatchers("/api/authenticate").permitAll() // 로그인
-                                .requestMatchers("/api/hello").permitAll() // test
+                                .requestMatchers("/api/hello").permitAll() // 토큰없이 단순 string 반환
+                                .requestMatchers("/api/signup","/api/authenticate").permitAll() // 회원가입, token발급
+                                .requestMatchers("/swagger-ui/**","/v3/api-docs/**","/v3/api-docs").permitAll() // swagger-ui
+                                .requestMatchers("/", "/error", "/favicon.ico").permitAll()
+                                .requestMatchers("/*.png", "/*.gif", "/*.svg", "/*.jpg", "/*.html", "/*.css", "/*.js").permitAll()
                                 .requestMatchers(PathRequest.toH2Console()).permitAll() // DB
                                 .anyRequest().authenticated()
                 )
